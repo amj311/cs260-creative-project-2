@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script>
-      function ChangeColor() {
-        document.body.style.backgroundColor = "red";
+
+<head>
+  <script>
+    var done = 1;
+
+    function ChangeColor() {
+      if (done) {
+        document.body.style.backgroundColor = "lightgray";
+        done = 0;
       }
-    </script>
-  </head>
-  <body onclick = "ChangeColor()">
-    <h1>This is our project!</h1>
-  </body>
+      else {
+        document.body.style.backgroundColor = "white"
+        done = 1;
+      }
+    }
+  </script>
+</head>
+
+<body onclick="ChangeColor()">
+  <h1>This is our project!</h1>
+</body>
+
 </html>
