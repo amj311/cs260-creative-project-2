@@ -2,7 +2,7 @@
 
 ## Courses:
 ### Chem 101
-Bldg: 2280 BNSN 
+Bldg: 2280 BNSN  
 Time: MWF, 9 - 9:50 
 Tasks: Read chapter 5 before class, turn in lab assignment 
 ### Math 101
