@@ -1,48 +1,91 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
-    <title>Login</title>
+    <title>A+ Scheduler</title>
 
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="styles.css">
-
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="calendar.css">
+    
 </head>
-
 <body>
 
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">A+ Scheduler</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="pages/portfolio.html">Portfolio</a></li>
-                <li><a href="pages/reviews.html">Reviews</a></li>
-                <li><a href="pages/about.html">About</a></li>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard.html">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="classes.html">Classes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="settings.html">Settings</a>
+                </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="dashboard.html">Login</a></li>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Log Out</a>
+                </li>
             </ul>
         </div>
     </nav>
 
     <div class="max-width">
-        <!-- Put all content in here -->
-        <p>asjh kasjhdksdhfalks dks jdfhkah asdkfhaksldf kasdh fkashdfka sdfkj hasdkf askdf haksdfh alksjd hfkalsd hfkajsd fkjas dhfklas dh</p>
-        <div id="addButton"></div>
-    </div>
+        <h1>A+ Scheduler</h1>
 
+        <div class="dash-panel">
+
+            <div id="calendar" class="widget">
+                <div class="bglines"></div>
+                <div class="grid">
+                    <div class="gutter"></div>
+                    <div class="events">
+                        <div class="event main" style="top:163px">Go to class</div>
+                        <div class="event google sub" style="top:150px">Go to class</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tasks" class="widget">
+                <ul>
+                    <li>adcln dflkjbj ndsf</li>
+                    <li>sdflbj sdfkjb sdf</li>
+                    <li> sdfb sdg fg g</li>
+                    <li> sdf sdfgh sfj dtk fhjk yu</li>
+                </ul>
+            </div>
+
+            <div id="classes" class="widget">
+                <h3>hteyurtyu rt</h3>
+                <ul>
+                    <li>sgh gfh dfgh</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <button onclick="log('new message')">Log Message</button>
+        <div id="msgs"></div>
+    </div>
+        
     <footer>
         <a href="https://github.com/amj311/cs260-creative-project-1">GitHub</a>
     </footer>
 
+      
 </body>
 
+<script src="calendar.js"></script>
 </html>
