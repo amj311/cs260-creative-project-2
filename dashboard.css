@@ -1,0 +1,19 @@
+/* width */
+#calendar::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+*:hover::-webkit-scrollbar-thumb {
+    background: rgb(209, 209, 209);
+}
+
+/* Handle on hover */
+*:hover::-webkit-scrollbar-thumb:hover {
+    background: rgb(190, 190, 190);
+}
