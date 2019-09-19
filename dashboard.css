@@ -1,9 +1,3 @@
-.dash {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: start;
-}
-
 .dash-panel-left {
     flex-grow: 3;
     min-width: 300px;

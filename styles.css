@@ -1,4 +1,4 @@
-.page-height {
+.min-page-height {
     min-height:calc(100vh - 110px);
 }
 
@@ -12,6 +12,12 @@
 }
 .padded-topbottom {
     padding: .6em 0;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
 }
 
 .add-button-floater {
@@ -30,7 +36,7 @@
     background-position: center;
     border-radius: 50%;
     position: absolute;
-    bottom: 1em;
+    bottom: 4em;
     right: 1em;
     width: 3em;
     height: 3em;

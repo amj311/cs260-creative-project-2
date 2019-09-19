@@ -1,0 +1,24 @@
+.settings-wrapper {
+    background: #ddd;
+}
+
+.settings-panel {
+    padding: 1em;
+}
+
+.settings-panel-left {
+    min-width: 150px;
+    text-align: right;
+}
+#settingsNav a {
+    display: block;
+}
+
+.settings-panel-right {
+    flex-grow: 1;
+    background: #eee;
+}
+
+.settings-panel-right section {
+    padding: 1em 0;
+}
