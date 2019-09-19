@@ -1,13 +1,10 @@
-footer {
-    background-color: lightgray;
-    text-align: center;
-    padding: 15px;
+.page-wrapper {
+    min-height:calc(100vh - 110px);
 }
 
 .max-width {
     margin: 0 auto;
     max-width: 800px;
-    position: relative;
 }
 
 .padded-side {
@@ -17,11 +14,29 @@ footer {
     padding: .6em 0;
 }
 
-#addButton {
-    width: 50px;
-    height: 50px;
-    background-color: green;
-    border-radius: 50%;
+.add-button-floater {
     position: fixed;
-    right: 0;
+    bottom: 50px;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    z-index: 20;
+}
+.add-button {
+    background-color: rgb(0, 211, 0);
+    border-radius: 50%;
+    box-shadow: 0px 2px 5px #000000aa;
+    float: right;
+    top:50%;
+    right:2em;
+}
+.add-button::before {
+    content: '+';
+    display: block;
+}
+
+footer {
+    background-color: lightgray;
+    text-align: center;
+    padding: 15px;
 }
