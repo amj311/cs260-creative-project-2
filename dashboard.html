@@ -1,91 +1,137 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
-    <title>A+ Scheduler</title>
+	<title>A+ Scheduler</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="dashboard.css">
-    <link rel="stylesheet" href="calendar.css">
-    
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="calendar.css">
+	<link rel="stylesheet" href="dashboard.css">
+
 </head>
+
 <body>
 
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="dashboard.html">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="classes.html">Classes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="settings.html">Settings</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Log Out</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">A+ Task Manager</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-    <div class="max-width">
-        <h1>A+ Scheduler</h1>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="dashboard.html">Dashboard</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="classes.html">Classes</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="settings.html">Settings</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="index.html">Log Out</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
 
-        <div class="dash-panel">
+	<div class="max-width padded-side">
+		<h1>Dashboard</h1>
+		<div class="dash">
+			<div class="dash-panel dash-panel-left">
 
-            <div id="calendar" class="widget">
-                <div class="bglines"></div>
-                <div class="grid">
-                    <div class="gutter"></div>
-                    <div class="events">
-                        <div class="event main" style="top:163px">Go to class</div>
-                        <div class="event google sub" style="top:150px">Go to class</div>
-                    </div>
-                </div>
-            </div>
+				<div id="calendar" class="widget ">
+					<div class="widget-header">
+						<h5>Today At A Glance</h5>
+						<button class="btn btn-sm btn-primary" onclick="posCalNow()">Now</button>
+					</div>
+					<div class="widget-body aplus-cal-scroller">
+						<div id="aplus-cal-box">
+							<div class="bglines"></div>
+							<div class="grid">
+								<div class="gutter"></div>
+								<div class="events-box">
+									<div class="event main" style="top: 609px;height: 111px;">
+										<div class="event-title">UNDRWTR BSKTWVNG 121</div>
+										<div class="event-subtitle">9900 KMBL</div>
+									</div>
+									<div class="event main" style="top: 832px;height: 80px;">
+										<div class="event-title">HOT YOGA 567</div>
+										<div class="event-subtitle">1100 RB</div>
+									</div>
+									<div class="event google sub" style="top: 577px;">
+										<div class="event-title">Netflix Avatar Release</div>
+										<div class="event-subtitle">#wtrbndr4life</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
-            <div id="tasks" class="widget">
-                <ul>
-                    <li>adcln dflkjbj ndsf</li>
-                    <li>sdflbj sdfkjb sdf</li>
-                    <li> sdfb sdg fg g</li>
-                    <li> sdf sdfgh sfj dtk fhjk yu</li>
-                </ul>
-            </div>
+				</div>
+			
+			</div>
 
-            <div id="classes" class="widget">
-                <h3>hteyurtyu rt</h3>
-                <ul>
-                    <li>sgh gfh dfgh</li>
-                </ul>
-            </div>
+			<div class="dash-panel dash-panel-right">
 
-        </div>
+				<div id="tasks" class="widget">
+					<div class="widget-header">
+						<h5>Upcoming Tasks</h5>
+					</div>
+					<div class="widget-body">
+						<h7>Due Today:</h7>
+						<ul>
+							<li><input type="checkbox">Practice breathing underwater</li>
+							<li><input type="checkbox">Cultivate gullyweed</li>
+							<li><input type="checkbox">Obtain and wash spandex</li>
+						</ul>
+					</div>
+					
+					<div class="widget-body">
+						<h7>Due Soon:</h7>
+						<ul>
+							<li><input type="checkbox">adcln dflkjbj ndsf</li>
+							<li><input type="checkbox">adcln dflkjbj ndsf</li>
+							<li><input type="checkbox">adcln dflkjbj ndsf</li>
+						</ul>
+					</div>
+				</div>
 
-        <button onclick="log('new message')">Log Message</button>
-        <div id="msgs"></div>
-    </div>
-        
-    <footer>
-        <a href="https://github.com/amj311/cs260-creative-project-1">GitHub</a>
-    </footer>
+				<div id="classes" class="widget">
+					<div class="widget-header">
+						<h5>My Classes</h5>
+						<a href="classes.html" class="btn btn-sm btn-primary">See More</a>
+					</div>
+					<div class="widget-body">
+						<h3>hteyurtyu rt</h3>
+						<ul>
+							<li>sgh gfh dfgh</li>
+						</ul>
+					</div>
+				</div>
 
-      
+			</div>
+		</div>
+
+		<button onclick="log('new message')">Log Message</button>
+		<div id="msgs"></div>
+	</div>
+
+	<footer>
+		<a href="https://github.com/amj311/cs260-creative-project-1">GitHub</a>
+	</footer>
+
 </body>
 
 <script src="calendar.js"></script>
+
 </html>

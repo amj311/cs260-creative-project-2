@@ -7,8 +7,14 @@ footer {
 .max-width {
     margin: 0 auto;
     max-width: 800px;
-    min-height: 100%;
     position: relative;
+}
+
+.padded-side {
+    padding: 0 .6em;
+}
+.padded-topbottom {
+    padding: .6em 0;
 }
 
 #addButton {

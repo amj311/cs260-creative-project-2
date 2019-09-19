@@ -1,14 +1,3 @@
-function log(msg, type){
-	const log = document.getElementById('msgs')
-	log.innerHTML += `<div class="msg ${type || ''}">
-											${msg} - 
-											<em>
-												${new Date().toISOString()}
-											</em></div>`;
-	log.scrollTop = log.scrollHeight;
-}
-
-
 function fillCalGrid()
 {
 	for (let i = 0; i < (24*4); i++)
@@ -34,23 +23,31 @@ function fillCalGrid()
 				break;
 		}
 		document.getElementsByClassName("bglines")[0].innerHTML += `<div class="sched-box ${className}"><div class="timestamp">${hr}:${min}</div></div>`;
-	}
-	$('.bglines')[0].innerHTML += `<div id="nowMarker"></div>`;
+    }
+    document.getElementsByClassName("bglines")[0].innerHTML += `<div class="sched-box hr"><div class="timestamp">12:00</div></div>`;
+    
+	$('.bglines')[0].innerHTML += `<div id="nowMarker"><div class="time-bubble"</div></div>`;
 	updateNowMarker();
 }
 
 function updateNowMarker(){
-	let unit_15Min = $('.sched-box')[0].offsetHeight;
+    let dateTime = new Date();
+    
+    let unit_15Min = $('.sched-box')[0].offsetHeight;
 	let unit_Min = unit_15Min / 15;
-	let unit_Hr = unit_15Min * 4;
+    let unit_Hr = unit_15Min * 4;
+    let hrs = dateTime.getHours();
+    if (hrs == 0) hrs = "12"
+    else if(hrs > 12) hrs -= 12; 
+    let mins = dateTime.getMinutes();
+    if (mins < 10) mins = "0"+mins;
 
-	let dateTime = new Date();
-	let markerTop = `${(dateTime.getHours()*unit_Hr) + (dateTime.getMinutes()*unit_Min)}px`;
+	//console.log(dateTime.getHours()*unit_Hr, dateTime.getMinutes()*unit_Min, markerTop);
 
-	console.log(dateTime.getHours()*unit_Hr, dateTime.getMinutes()*unit_Min, markerTop);
-
-	$($('#nowMarker')[0]).css('top', `${(dateTime.getHours()*unit_Hr) + (dateTime.getMinutes()*unit_Min)}px`);
+    $($('#nowMarker')[0]).css('top', `${(dateTime.getHours()*unit_Hr) + (dateTime.getMinutes()*unit_Min)}px`);
+    $('.time-bubble')[0].innerText = `${hrs}:${mins}`
 }
+
 
 function posCalFirstEvent(){
 	
@@ -60,11 +57,12 @@ function posCalFirstEvent(){
 
 	let firstEventTop = Math.min(...eventMap);
 
-	document.getElementById('calendar').scrollTop = firstEventTop - 10;
+	document.getElementsByClassName('aplus-cal-scroller')[0].scrollTop = firstEventTop - 100;
 }
+
 function posCalNow(){
 	//place nowMarker as close as possible to center of schedule
-	document.getElementById('calendar').scrollTop = Number($('#nowMarker').css('top').slice(0,-2)) - ( $('#calendar').outerHeight() / 2 )
+    document.getElementsByClassName('aplus-cal-scroller')[0].scrollTop = Number($('#nowMarker').css('top').slice(0,-2)) - ( $('.aplus-cal-scroller').outerHeight() / 2 )
 }
 
 /********************************************* */
@@ -84,6 +82,6 @@ class Event {
 
 
 fillCalGrid();
-posCalFirstEvent();
 window.setInterval(updateNowMarker, 1000*60)
-posCalNow();
+//posCalNow();
+posCalFirstEvent();
