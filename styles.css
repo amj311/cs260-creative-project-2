@@ -1,4 +1,4 @@
-.page-wrapper {
+.page-height {
     min-height:calc(100vh - 110px);
 }
 
@@ -16,7 +16,7 @@
 
 .add-button-floater {
     position: fixed;
-    bottom: 50px;
+    bottom: 0;
     left: 50%;
     width: 100%;
     transform: translateX(-50%);
@@ -24,15 +24,21 @@
 }
 .add-button {
     background-color: rgb(0, 211, 0);
+    background-image: url(plus_white.png);
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
     border-radius: 50%;
-    box-shadow: 0px 2px 5px #000000aa;
-    float: right;
-    top:50%;
-    right:2em;
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    width: 3em;
+    height: 3em;
+    cursor: pointer;
+    transition: 100ms;
 }
-.add-button::before {
-    content: '+';
-    display: block;
+.add-button:hover {
+    box-shadow: 0px 2px 5px #000000aa;
 }
 
 footer {
