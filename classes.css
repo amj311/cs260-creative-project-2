@@ -1,0 +1,59 @@
+.class-container {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 16px;
+  margin: 16px auto;
+}
+
+#chem {
+  border-color: green;
+  background: rgba(76, 175, 80, 0.2)
+}
+
+#math {
+  border-color: black;
+  background: rgba(0, 0, 0, 0.2);
+}  
+
+#basket {
+  border-color: blue;
+  background: rgba(53, 73, 208, 0.2);
+}
+
+#yoga {
+  border-color: red;
+  background: rgba(360, 62, 55, 0.2);
+  
+}
+
+.class-container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.flex-container {
+    align-items: center;
+}
+
+.class-container img {
+  margin-right: 20px;
+}
+
+.class-container span {
+  font-size: 30px;
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+
+@media (max-width: 600px) {
+  .class-container {
+    display: block;
+  }
+  .class-container img {
+    margin: 0 auto;
+    float: none;
+    display: block;
+  }
+}
