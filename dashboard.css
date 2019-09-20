@@ -5,7 +5,7 @@
 
 .dash-panel-right {
     flex-grow: 1;
-    min-width:200px;
+    min-width:200px; 
 }
 
 .widget {
