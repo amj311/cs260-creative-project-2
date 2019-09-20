@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<title>A+ Scheduler</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="settings.css">
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">A+ Task Manager</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="dashboard.html">Dashboard</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="classes.html">Classes</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="settings.html">Settings</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="index.html">Log Out</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="min-page-height max-width">        
+        <div class="flex-container settings-wrapper">
+            <div class="settings-panel settings-panel-left">
+                <div id="settingsNav" class="sticky-top">
+                    <a href="#"><h5>Settings</h5></a>
+                    <a href="#profile">Profile</a>
+                    <a href="#scheduler">Scheduler</a>
+                    <a href="#tasks">Tasks</a>
+                </div>
+            </div>
+            <div class="settings-panel settings-panel-right">
+                <h1>Settings</h1>
+
+                <section id="profile">
+                    <h3>User Profile</h3>
+                    <div class="profile-img"><input id="inputFile" type="file" accept="image/*, .gif"></div>
+                    <div class="input-group mb-3" style="max-width: 300px;">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1">@</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                          </div>
+                          
+                          <label for="email">Your Email</label>
+                          <div class="input-group mb-3">
+                            <input type="text" id="email" class="form-control" placeholder="example@email.com" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                          </div>
+                          
+                          <label for="basic-url">Your Website</label>
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon3">https://</span>
+                            </div>
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                          </div>
+                          
+                          <label>Describe yourself:</label>
+                          <textarea class="form-control" aria-label="With textarea"></textarea>
+                          
+                </section>
+                <section id="scheduler">
+                    <h3>Scheduler</h3>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Jump to</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option selected value="1">first task of day</option>
+                            <option value="2">current time of day</option>
+                        </select>
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="inputGroupSelect01">on load.</label>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input">
+                            </div>
+                        </div>
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="inputGroupSelect01">Sync events from Google Calendar?</label>
+                        </div>
+                    </div>
+                </section>
+                <section id="tasks">
+                    <h3>Tasks</h3>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Order by</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option selected value="1">due date.</option>
+                            <option value="2">highest prioity.</option>
+                            <option value="3">class.</option>
+                        </select>
+                    </div>
+                </section>
+                <center><button class="btn btn-primary">Save</button> <a href="settings.html" class="btn btn-outline-secondary">Revert</a></center>
+            </div>
+        </div>
+
+	</div>
+
+	<footer>
+		<a href="https://github.com/amj311/cs260-creative-project-1">GitHub</a>
+	</footer>
+
+<script>
+     function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-img').attr('style', `background-image: url(${e.target.result})`);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#inputFile").change(function () {
+        readURL(this);
+    });
+</script>
+
+</body>
+</html>

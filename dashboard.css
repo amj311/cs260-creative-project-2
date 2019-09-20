@@ -1,5 +1,50 @@
+.dash-panel-left {
+    flex-grow: 3;
+    min-width: 300px;
+}
+
+.dash-panel-right {
+    flex-grow: 1;
+    min-width:200px;
+}
+
+.widget {
+    margin: 0 1em 1em 0;
+    padding: .6em;
+    border: 1px solid blue;
+}
+
+.widget-header h5 {
+    float: left;
+}
+.widget-header .btn-sm {
+    float: right;
+}
+.widget-body {
+    clear: both;
+}
+
+.aplus-cal-scroller {
+    max-height: calc(100vh - 400px);
+    min-height: 400px;
+    overflow-y: auto;
+    padding-top:5px;
+}
+
+#tasks.widget ul {
+    list-style: none;
+    padding-left: 1em;
+}
+
+#tasks.widget input {
+    margin-right: .5em;
+}
+
+
+
+/* SCROLLBARS */
 /* width */
-#calendar::-webkit-scrollbar {
+.widget *::-webkit-scrollbar, .widget::-webkit-scrollbar {
     width: 8px;
 }
 
