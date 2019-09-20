@@ -7,7 +7,12 @@ footer {
 .max-width {
     margin: 0 auto;
     max-width: 800px;
-    position: relative;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
 }
 
 #addButton {
