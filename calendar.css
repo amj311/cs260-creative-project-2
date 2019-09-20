@@ -1,28 +1,59 @@
-#calendar {
-	max-height:	50vh;
-	overflow-y: auto;
-	margin: 1em auto;
-	border: 1px solid #999;
+#aplus-cal-box {
 	position: relative;
 }
-#calendar * { box-sizing: border-box; }
+#aplus-cal-box * { box-sizing: border-box; }
+
+
+
+/* nowMarker */
+
 div#nowMarker {
     position: absolute;
-    top: 100px;
     left: 0;
     width: 100%;
-    border-top: 2px solid red;
+    height: 2px;
+    background-color: red;
+    user-select: none;
 }
+#nowMarker .time-bubble {
+    position: absolute;
+    padding: 0.2em .3em;
+    background-color: inherit;
+    color: #fff;
+    font-size: 0.7em;
+    font-weight: bold;
+    border-radius: 3px;
+    transform: scale(0.3) translateX(-300%) translateY(calc(-170% + 1px));
+    transition: 150ms;
+}
+#nowMarker:hover .time-bubble {
+    transform: translateY(calc(-50% + 1px));
+}
+/* for targeting */
+#nowMarker::after {
+    content:  '';
+    display: block;
+    left: 0;
+    width: 100%;
+    height: .5em;
+    transform: translateY(calc(-50% + 1px));
+}
+
+
+
+/* schedule background lines and hours */
+
 .sched-box {
-	height: 12px; /* CANNOT BE EM - because .min are have .8 em font and js calculation of time will be off. */ 
+	height: 16px; /* CANNOT BE EM - because .min are have .8 em font and js calculation of time will be off. */ 
 	box-sizing: border-box;
 }
 .sched-box .timestamp {
-	width:2.5em;
-	text-align: right;
-	padding-right: .2em;
-	background:white;
-	margin-top: -.6em;
+    width: 2.5em;
+    text-align: right;
+    padding-right: .3em;
+    background: white;
+    margin-top: -.8em;
+    font-size: .9em;
 }
 .sched-box.hr {
 	border-top: 1px solid #000000aa;
@@ -38,6 +69,10 @@ div#nowMarker {
 	display: block;
 	color: #777;
 }
+
+
+/* Schedule events */
+
 .grid {
 	width:100%;
 	position: absolute;
@@ -46,7 +81,7 @@ div#nowMarker {
 	display:grid;
 	grid-template-columns: 3em 1fr;
 }
-.events {
+.events-box {
 	width:100%;
 	position: relative;
 }
@@ -56,12 +91,14 @@ div#nowMarker {
 	box-sizing: border-box;
 	padding: .2em;
 	border-radius: 3px;
-	min-width: 50%;
+	min-width: 70%;
 	max-width: 90%;
-	position: absolute;
 	min-height: 50px;
-	border: 2px solid #00000011;
-	user-select: none;
+    border: 2px solid #00000011;
+    overflow: hidden;
+    user-select: none;
+    cursor: pointer;
+	position: absolute;
 }
 .event:hover, .events.active {
 	z-index: 20 !important;
@@ -69,10 +106,18 @@ div#nowMarker {
 }
 .event.main {
 	z-index: 10;
-	left: 10%;
-	max-width:90%;
+	left: 50%;
+    max-width:60%;
+    transform: translateX(-50%)
 }
 .event.sub {
 	z-index: 5;
-	background: #999;
+	background: #bbb;
+}
+
+.event .event-title {
+    font-size:.8em;
+}
+.event .event-subtitle {
+    font-size:.7em;
 }
