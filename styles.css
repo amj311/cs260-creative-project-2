@@ -1,3 +1,7 @@
+body {
+    background: #eee;
+}
+
 .min-page-height {
     min-height:calc(100vh - 110px);
 }
