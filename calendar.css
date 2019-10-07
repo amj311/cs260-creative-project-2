@@ -1,6 +1,31 @@
+#msgs {
+	padding: 10px;
+	background: #dddddd;
+	max-height: 10.2em;
+	overflow-y: auto;
+}
+.msg {
+    padding-bottom: .5em;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: .5em;
+}
+.msg.err { color: red; }
+.log-time {
+    font-style: italic;
+    font-size: .9em;
+    float: right;
+    padding-left: 1em;
+    color: #555;
+}
+
+
+
+
+
 #aplus-cal-box {
 	position: relative;
 }
+
 #aplus-cal-box * { box-sizing: border-box; }
 
 
