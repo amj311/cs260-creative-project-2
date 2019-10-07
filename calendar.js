@@ -1,3 +1,49 @@
+/***********************************************************
+ DATA STRUCTURE
+\***********************************************************/
+
+
+
+class Event {
+	constructor(start, end, specs = undefined){
+		start;
+		end;
+	}
+	start;
+	end;
+}
+
+class StudySession extends Event {
+	constructor(start, end, specs = undefined){
+		super(start, end, specs	);
+	}
+}
+
+function ifItWorked(){ console.log("It Worked!") }
+
+
+
+
+/***********************************************************
+ Calendar UI
+\***********************************************************/
+
+function log(type, ...msgs){
+	let logHTML = "";
+	const log = document.getElementById('msgs')
+	
+	msgs.forEach(function(msg) {
+		logHTML +=	`<div class="msg-line">${msg}</div>`
+	} )
+	
+	log.innerHTML += `	<div class="msg ${type || ''}">
+							<div class="log-time">${new Date().toISOString()}</div>
+							${logHTML}
+						</div>`;
+	log.scrollTop = log.scrollHeight;
+}
+
+
 function fillCalGrid()
 {
 	for (let i = 0; i < (24*4); i++)
@@ -23,11 +69,24 @@ function fillCalGrid()
 				break;
 		}
 		document.getElementsByClassName("bglines")[0].innerHTML += `<div class="sched-box ${className}"><div class="timestamp">${hr}:${min}</div></div>`;
-    }
+	}
     document.getElementsByClassName("bglines")[0].innerHTML += `<div class="sched-box hr"><div class="timestamp">12:00</div></div>`;
-    
+}
+
+
+function initiateNowMarker(){
 	$('.bglines')[0].innerHTML += `<div id="nowMarker"><div class="time-bubble"</div></div>`;
+
+	let dateTime = new Date();
+	let secsToMinute = 60 - dateTime.getSeconds();
+	console.log(secsToMinute);
+
 	updateNowMarker();
+	setTimeout( function(){
+		console.log("starting 1min cycle")
+		updateNowMarker();
+		window.setInterval(updateNowMarker, 1000*60)
+	}, secsToMinute*1000)
 }
 
 function updateNowMarker(){
@@ -46,6 +105,8 @@ function updateNowMarker(){
 
     $($('#nowMarker')[0]).css('top', `${(dateTime.getHours()*unit_Hr) + (dateTime.getMinutes()*unit_Min)}px`);
     $('.time-bubble')[0].innerText = `${hrs}:${mins}`
+
+	console.log(`Time is now ${hrs}:${mins}`)
 }
 
 
@@ -62,26 +123,12 @@ function posCalFirstEvent(){
 
 function posCalNow(){
 	//place nowMarker as close as possible to center of schedule
-    document.getElementsByClassName('aplus-cal-scroller')[0].scrollTop = Number($('#nowMarker').css('top').slice(0,-2)) - ( $('.aplus-cal-scroller').outerHeight() / 2 )
+	document.getElementsByClassName('aplus-cal-scroller')[0].scrollTop = Number($('#nowMarker').css('top').slice(0,-2)) - ( $('.aplus-cal-scroller').outerHeight() / 2 )
 }
-
-/********************************************* */
-
-
-
-class Event {
-	constructor(){}
-	start;
-	end;
-}
-
-
-
-/******************************************** */
 
 
 
 fillCalGrid();
-window.setInterval(updateNowMarker, 1000*60)
-//posCalNow();
 posCalFirstEvent();
+initiateNowMarker();
+posCalNow();
