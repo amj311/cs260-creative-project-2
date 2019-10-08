@@ -23,6 +23,7 @@ var userButtonSpan = document.getElementById('user_buttons');
 
 
 var userCalendars = [];
+var todayEvents = ["hi"];
 
 /**
  *  On load, called to load the auth2 library and API client library.
@@ -131,7 +132,6 @@ function listUpcomingEvents() {
 
 let calendars = gapi.client.items;
 console.log(calendars);
-
 
 gapi.client.calendar.events.list({
     'calendarId': 'primary',
