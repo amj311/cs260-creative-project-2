@@ -60,17 +60,13 @@
 							<div class="grid">
 								<div class="gutter"></div>
 								<div class="events-box">
-									<div class="event main" style="top: 609px;height: 111px;">
-										<div class="event-title">UNDRWTR BSKTWVNG 121</div>
-										<div class="event-subtitle">9900 KMBL</div>
-									</div>
-									<div class="event main" style="top: 832px;height: 80px;">
-										<div class="event-title">HOT YOGA 567</div>
-										<div class="event-subtitle">1100 RB</div>
-									</div>
-									<div class="event google sub" style="top: 577px;">
+									<div class="event sub" style="top: 449px;">
 										<div class="event-title">Netflix Avatar Release</div>
 										<div class="event-subtitle">#wtrbndr4life</div>
+									</div>
+									<div v-for="event in calendarItems" :data-type="event.baseEvent.type" class="event" :style="event.styles">
+										<div class="event-title">{{event.summary}}</div>
+										<div class="event-subtitle">{{event.subtitle}}</div>
 									</div>
 								</div>
 							</div>
@@ -163,6 +159,7 @@
 
 </body>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>
 <script async defer src="https://apis.google.com/js/api.js"
 onload="this.onload=function(){};handleClientLoad()"
 onreadystatechange="if (this.readyState === 'complete') this.onload()">

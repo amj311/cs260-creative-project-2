@@ -1,32 +1,195 @@
 /***********************************************************
  DATA STRUCTURE
 \***********************************************************/
-
+const CAL_CLASSES = {
+	_GGL: "google",
+	_MAIN: "main",
+	_CLASS: "class main",
+	_REM: "reminder",
+	_STUDY: "study"
+}
+const DAYS = { 0: "sunday", 1: "monday", 2: "tuesday", 3: "wednesday", 4: "thursday", 5: "friday", 6: "saturday"}
 
 
 class Event {
-	constructor(start, end, specs = undefined){
-		start;
-		end;
+	constructor(seed){
+		this.start = seed.start || "Not Set";
+		this.end = seed.end || "Not Set";
+		this.summary = seed.summary || "Untitled Event";
+		this.location = seed.location;
+		this.color = seed.color;
 	}
-	start;
-	end;
+	isValid;
+	startDate() { return new Date(this.start) };
+	endDate() { return new Date(this.end) };
 }
 
 class StudySession extends Event {
-	constructor(start, end, specs = undefined){
-		super(start, end, specs	);
+	constructor(specs = {}){
+		super(specs);
 	}
 }
 
-function ifItWorked(){ console.log("It Worked!") }
+class ClassPeriod extends Event {
+	constructor(course) {
+		let seed = {
+			summary: course.name,
+		}
+	}
+}
+
+class GoogleEvent extends Event {
+	constructor(eventItem) {
+
+		eventItem.start = eventItem.start.dateTime;
+		eventItem.end = eventItem.end.dateTime;
+
+		super(eventItem)
+		this.type = CAL_CLASSES._GGL;
+	}
+}
+
+
+
+class Course {
+	constructor(){}
+}
+
+
+
+class CalendarItemFromEvent {
+	constructor(event) {
+		this.baseEvent = event;
+		this.summary = event.summary;
+		if (event.location) this.subtitle = `📍 ${event.location}`;
+
+		let start_dt = new Date(event.start)
+		let startPos = ((unit_15Min * 4) * start_dt.getHours()) + ((unit_15Min / 15) * start_dt.getMinutes());
+
+		let end_dt = new Date(event.end)
+		let endPos = ((unit_15Min * 4) * end_dt.getHours()) + ((unit_15Min / 15) * end_dt.getMinutes());
+		let eventHeight = endPos - startPos;
+
+		this.styles = `top: ${startPos}px; height: ${eventHeight}px; background-color: ${this.baseEvent.color}`
+	}
+}
+
+
+/***********************************************************
+ TEST DATA
+\***********************************************************/
+
+var testUserData = {
+	classPeriods: [
+		{
+			summary: "CS 260 Web Programming",
+			start: "2019-10-08T09:00:00-06:00" ,
+			end: "2019-10-08T09:50:00-06:00",
+			location: "ESC 251",
+		},
+		{
+			summary: "REL 250 Foundations of the Restoration",
+			start: "2019-10-08T14:00:00-06:00",
+			end: "2019-10-08T14:50:00-06:00",
+			location: "HBLL 3721",
+		},
+		{
+			summary: "UNDRWTR BSKTWVNG 121",
+			start: "2019-10-08T10:00:00-06:00",
+			end: "2019-10-08T10:50:00-06:00",
+			location: "KMBL 9101",
+		},
+		{
+			summary: "HOT YOGA 567",
+			start: "2019-10-08T12:00:00-06:00",
+			end: "2019-10-08T13:30:00-06:00",
+			location: "RB 101",
+		}
+	],
+	googleEvents: [
+		{
+			summary: "The Not Stand Up Meeting",
+			start: { dateTime: "2019-10-08T08:45:00-06:00" },
+			end: { dateTime: "2019-10-08T09:00:00-06:00" },
+			color: "#9fe1e7"
+		},
+		{
+			summary: "Call Someone",
+			start: { dateTime: "2019-10-08T11:30:00-06:00" },
+			end: { dateTime: "2019-10-08T12:30:00-06:00" },
+			color: "lightgrey"
+		},
+		{
+			summary: "Talk to CS Advisor",
+			start: { dateTime: "2019-10-08T13:00:00-06:00" },
+			end: { dateTime: "2019-10-08T13:45:00-06:00" },
+			color: "lightgrey"
+		},
+		{
+			summary: "Self-Reliance Course",
+			start: { dateTime: "2019-10-08T19:00:00-06:00" },
+			end: { dateTime: "2019-10-08T20:45:00-06:00" },
+			color: "lightgrey"
+		}
+	]
+}
+
+
 
 
 
 
 /***********************************************************
+ Vue Components
+\***********************************************************/
+
+var calEvents = new Vue ({
+	el: '#aplus-cal-box',
+
+	data: {
+		googleEvents: [],
+		userClasses: []
+	},
+
+	methods: {
+		testEvents(){
+			this.googleEvents = testUserData.googleEvents.map( googleEvent => {
+				return new GoogleEvent(googleEvent);
+			});
+
+			this.userClasses = testUserData.classPeriods.map( period => {
+				return new Event(period);
+			});;
+		}
+	},
+
+	computed: {
+		calendarItems() {
+			let events = []
+
+			//repeat for every necessary calendar
+			this.googleEvents.forEach( event => {
+				events.push(new CalendarItemFromEvent(event))
+			})
+
+
+			this.userClasses.forEach( event => {
+				event.type = CAL_CLASSES._CLASS;
+				events.push(new CalendarItemFromEvent(event))
+			})
+
+			return events;
+		}
+	}
+})
+
+
+/***********************************************************
  Calendar UI
 \***********************************************************/
+
+var unit_15Min = 10;
+
 
 function log(type, ...msgs){
 	let logHTML = "";
@@ -79,11 +242,11 @@ function initiateNowMarker(){
 
 	let dateTime = new Date();
 	let secsToMinute = 60 - dateTime.getSeconds();
-	console.log(secsToMinute);
+	// console.log(secsToMinute);
 
 	updateNowMarker();
 	setTimeout( function(){
-		console.log("starting 1min cycle")
+		// console.log("starting 1min cycle")
 		updateNowMarker();
 		window.setInterval(updateNowMarker, 1000*60)
 	}, secsToMinute*1000)
@@ -92,8 +255,8 @@ function initiateNowMarker(){
 function updateNowMarker(){
     let dateTime = new Date();
     
-    let unit_15Min = $('.sched-box')[0].offsetHeight;
-	let unit_Min = unit_15Min / 15;
+    unit_15Min = $('.sched-box')[0].offsetHeight;
+		let unit_Min = unit_15Min / 15;
     let unit_Hr = unit_15Min * 4;
     let hrs = dateTime.getHours();
     if (hrs == 0) hrs = "12"
@@ -106,7 +269,7 @@ function updateNowMarker(){
     $($('#nowMarker')[0]).css('top', `${(dateTime.getHours()*unit_Hr) + (dateTime.getMinutes()*unit_Min)}px`);
     $('.time-bubble')[0].innerText = `${hrs}:${mins}`
 
-	console.log(`Time is now ${hrs}:${mins}`)
+	// console.log(`Time is now ${hrs}:${mins}`)
 }
 
 
@@ -128,7 +291,20 @@ function posCalNow(){
 
 
 
+/**
+ * 
+ * @param {array} events 
+ */
+function renderEvents(array) {
+
+}
+
+
+
+
 fillCalGrid();
 posCalFirstEvent();
 initiateNowMarker();
 posCalNow();
+
+calEvents.testEvents()
