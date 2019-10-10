@@ -15,6 +15,7 @@ var fetchCalButton = document.getElementById('fetch_cal_button');
 var listCalButton = document.getElementById('list_cal_button');
 var listEventButton = document.getElementById('list_event_button');
 var userButtonSpan = document.getElementById('user_buttons');
+var syncButton = document.getElementById('sync_button');
 
 
 
@@ -23,13 +24,13 @@ var userButtonSpan = document.getElementById('user_buttons');
 
 
 var userCalendars = [];
-var todayEvents = ["hi"];
+var todayEvents = [];
 
 /**
  *  On load, called to load the auth2 library and API client library.
  */
 function handleClientLoad() {
-gapi.load('client:auth2', initClient);
+    gapi.load('client:auth2', initClient);
 }
 
 /**
@@ -37,28 +38,29 @@ gapi.load('client:auth2', initClient);
  *  listeners.
  */
 function initClient() {
-gapi.client.init({
-    apiKey: API_KEY,
-    clientId: CLIENT_ID,
-    discoveryDocs: DISCOVERY_DOCS,
-    scope: SCOPES
-}).then(function () {
-    // Listen for sign-in state changes.
-    gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+    gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES
+    }).then(function() {
+        // Listen for sign-in state changes.
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
-    // Handle the initial sign-in state.
-    updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        // Handle the initial sign-in state.
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
 
-    // assign button tasks
-    authorizeButton.onclick = handleAuthClick;
-    signoutButton.onclick = handleSignoutClick;
-    fetchCalButton.onclick = fetchUserCalendars;
-    listCalButton.onclick = listUserCalendars;
-    listEventButton.onclick = listUpcomingEvents;
+        // assign button tasks
+        authorizeButton.onclick = handleAuthClick;
+        signoutButton.onclick = handleSignoutClick;
+        fetchCalButton.onclick = fetchUserCalendars;
+        listCalButton.onclick = listUserCalendars;
+        listEventButton.onclick = listUpcomingEvents;
+        syncButton.onclick = syncCalendar;
 
-}, function(error) {
-    appendPre(JSON.stringify(error, null, 2));
-});
+    }, function(error) {
+        appendPre(JSON.stringify(error, null, 2));
+    });
 }
 
 /**
@@ -66,30 +68,71 @@ gapi.client.init({
  *  appropriately. After a sign-in, the API is called.
  */
 function updateSigninStatus(isSignedIn) {
-if (isSignedIn) {
-    authorizeButton.style.display = 'none';
-    signoutButton.style.display = 'block';
-    userButtonSpan.style.display = 'block';
-    fetchUserCalendars();
-} else {
-    authorizeButton.style.display = 'block';
-    userButtonSpan.style.display = 'none';
-    signoutButton.style.display = 'none';
-}
+    if (isSignedIn) {
+        authorizeButton.style.display = 'none';
+        signoutButton.style.display = 'block';
+        userButtonSpan.style.display = 'block';
+        syncButton.style.display = 'block'
+        fetchUserCalendars();
+    }
+    else {
+        authorizeButton.style.display = 'block';
+        userButtonSpan.style.display = 'none';
+        signoutButton.style.display = 'none';
+        syncButton.style.display = 'none';
+    }
 }
 
 /**
  *  Sign in the user upon button click.
  */
 function handleAuthClick(event) {
-gapi.auth2.getAuthInstance().signIn();
+    gapi.auth2.getAuthInstance().signIn();
 }
 
 /**
  *  Sign out the user upon button click.
  */
 function handleSignoutClick(event) {
-gapi.auth2.getAuthInstance().signOut();
+    gapi.auth2.getAuthInstance().signOut();
+}
+
+function syncCalendar(event) {
+    todayEvents
+
+    let calendars = gapi.client.items;
+    console.log(calendars);
+
+    gapi.client.calendar.events.list({
+        'calendarId': 'primary',
+        'timeMin': (new Date()).toISOString(),
+        'showDeleted': false,
+        'singleEvents': true,
+        'maxResults': 10,
+        'orderBy': 'startTime'
+    }).then(function(response) {
+        var events = response.result.items;
+        appendPre('Upcoming events:');
+
+        if (events.length > 0) {
+            var d = new Date;
+            for (i = 0; i < events.length; i++) {
+                if (events[i].start.dateTime == d.day()) {
+                    var event = events[i];
+                    var when = event.start.dateTime;
+                    if (!when) {
+                        when = event.start.date;
+                    }
+
+                    appendPre(event.summary + ' (' + when + ')')
+                    console.table(event)
+                }
+            }
+        }
+        else {
+            appendPre('No upcoming events found.');
+        }
+    });
 }
 
 
@@ -101,25 +144,25 @@ gapi.auth2.getAuthInstance().signOut();
  * @param {string} message Text to be placed in pre element.
  */
 function appendPre(message) {
-var pre = document.getElementById('content');
-var textContent = document.createTextNode(message + '\n');
-pre.appendChild(textContent);
+    var pre = document.getElementById('content');
+    var textContent = document.createTextNode(message + '\n');
+    pre.appendChild(textContent);
 
-log('',message);
+    log('', message);
 }
 
 
-function fetchUserCalendars(){
+function fetchUserCalendars() {
     gapi.client.calendar.calendarList.list()
-    .then( function(response){
-        userCalendars = response.result.items;
-        listUserCalendars();
-    })
+        .then(function(response) {
+            userCalendars = response.result.items;
+            listUserCalendars();
+        })
 }
 
-function listUserCalendars(){
-    for (let i = 0; i < userCalendars.length; i++){
-        console.log(userCalendars[i].summary)
+function listUserCalendars() {
+    for (let i = 0; i < userCalendars.length; i++) {
+        console.log(userCalendars[i].summary);
     }
 }
 
@@ -130,32 +173,33 @@ function listUserCalendars(){
  */
 function listUpcomingEvents() {
 
-let calendars = gapi.client.items;
-console.log(calendars);
+    let calendars = gapi.client.items;
+    console.log(calendars);
 
-gapi.client.calendar.events.list({
-    'calendarId': 'primary',
-    'timeMin': (new Date()).toISOString(),
-    'showDeleted': false,
-    'singleEvents': true,
-    'maxResults': 10,
-    'orderBy': 'startTime'
-}).then(function(response) {
-    var events = response.result.items;
-    appendPre('Upcoming events:');
+    gapi.client.calendar.events.list({
+        'calendarId': 'primary',
+        'timeMin': (new Date()).toISOString(),
+        'showDeleted': false,
+        'singleEvents': true,
+        'maxResults': 10,
+        'orderBy': 'startTime'
+    }).then(function(response) {
+        var events = response.result.items;
+        appendPre('Upcoming events:');
 
-    if (events.length > 0) {
-    for (i = 0; i < events.length; i++) {
-        var event = events[i];
-        var when = event.start.dateTime;
-        if (!when) {
-        when = event.start.date;
+        if (events.length > 0) {
+            for (i = 0; i < events.length; i++) {
+                var event = events[i];
+                var when = event.start.dateTime;
+                if (!when) {
+                    when = event.start.date;
+                }
+                appendPre(event.summary + ' (' + when + ')')
+                console.table(event)
+            }
         }
-        appendPre(event.summary + ' (' + when + ')')
-        console.table(event)
-    }
-    } else {
-    appendPre('No upcoming events found.');
-    }
-});
+        else {
+            appendPre('No upcoming events found.');
+        }
+    });
 }
