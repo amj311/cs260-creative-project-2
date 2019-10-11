@@ -98,7 +98,9 @@ function handleSignoutClick(event) {
 }
 
 function syncCalendar(event) {
-    todayEvents
+    todayEvents = [];
+    var currentDay = new Date;
+    var endOfDay = currentDay.setHours(23, 59, 59);
 
     let calendars = gapi.client.items;
     console.log(calendars);
@@ -108,29 +110,31 @@ function syncCalendar(event) {
         'timeMin': (new Date()).toISOString(),
         'showDeleted': false,
         'singleEvents': true,
-        'maxResults': 10,
+        // 'maxResults': 10,
+        'timeMax': (new Date(endOfDay)).toISOString(),
         'orderBy': 'startTime'
     }).then(function(response) {
         var events = response.result.items;
         appendPre('Upcoming events:');
 
         if (events.length > 0) {
-            var d = new Date;
             for (i = 0; i < events.length; i++) {
-                if (events[i].start.dateTime == d.day()) {
-                    var event = events[i];
-                    var when = event.start.dateTime;
-                    if (!when) {
-                        when = event.start.date;
-                    }
+                var eventDate = new Date(events[i].start.dateTime);
+                if (currentDay.getDate() == eventDate.getDate()) {
+                    // var event = events[i];
+                    // var when = event.start.dateTime;
+                    // if (!when) {
+                    //     when = event.start.date;
+                    // }
 
-                    appendPre(event.summary + ' (' + when + ')')
-                    console.table(event)
+                    // appendPre(event.summary + ' (' + when + ')')
+                    // console.table(event)
+                    todayEvents.push(event);
                 }
             }
         }
         else {
-            appendPre('No upcoming events found.');
+            appendPre('No events left today. Good job! ');
         }
     });
 }
