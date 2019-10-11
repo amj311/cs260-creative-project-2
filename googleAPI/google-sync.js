@@ -56,7 +56,7 @@ function initClient() {
         fetchCalButton.onclick = fetchUserCalendars;
         listCalButton.onclick = listUserCalendars;
         listEventButton.onclick = listUpcomingEvents;
-        syncButton.onclick = syncCalendar;
+        syncButton.onclick = getAllCalendarEvents;
 
     }, function(error) {
         appendPre(JSON.stringify(error, null, 2));
@@ -97,42 +97,6 @@ function handleSignoutClick(event) {
     gapi.auth2.getAuthInstance().signOut();
 }
 
-function syncCalendar(event) {
-    todayEvents = [];
-    var currentDay = new Date;
-    var endOfDay = currentDay.setHours(23, 59, 59);
-
-    let calendars = gapi.client.items;
-    console.log(calendars);
-
-    gapi.client.calendar.events.list({
-        'calendarId': 'primary',
-        'timeMin': (new Date()).toISOString(),
-        'showDeleted': false,
-        'singleEvents': true,
-        // 'maxResults': 10,
-        'timeMax': (new Date(endOfDay)).toISOString(),
-        'orderBy': 'startTime'
-    }).then(function(response) {
-        var events = response.result.items;
-
-        if (events.length > 0) {
-            for (i = 0; i < events.length; i++) {
-                var eventDate = new Date(events[i].start.dateTime);
-                if (currentDay.getDate() == eventDate.getDate()) {
-                    todayEvents.push(events[i]);
-                }
-            }
-            console.log(todayEvents)
-            calBox.googleEvents = todayEvents
-        }
-        else {
-            appendPre('No events left today. Good job! ');
-        }
-    });
-}
-
-
 
 /**
  * Append a pre element to the body containing the given message
@@ -158,10 +122,61 @@ function fetchUserCalendars() {
 }
 
 function listUserCalendars() {
+    let cal_sums = [];
     for (let i = 0; i < userCalendars.length; i++) {
-        console.log(userCalendars[i].summary);
+        cal_sums.push(userCalendars[i].summary)
+    }
+        log('','All user calendars: ',cal_sums);
+    
+}
+
+
+function getAllCalendarEvents() {
+    for (i=0; i < userCalendars.length; i++){
+    	syncCalendar(userCalendars[i])
     }
 }
+
+
+function syncCalendar(cal) {
+    todayEvents = [];
+    var currentDay = new Date;
+    var startOfDay = currentDay.setHours(0, 0, 0);
+    var endOfDay = currentDay.setHours(23, 59, 59);
+
+
+    gapi.client.calendar.events.list({
+        'calendarId': cal.id,
+        'timeMin': (new Date(startOfDay)).toISOString(),
+        'showDeleted': false,
+        'singleEvents': true,
+        // 'maxResults': 10,
+        'timeMax': (new Date(endOfDay)).toISOString(),
+        'orderBy': 'startTime'
+    }).then(function(response) {
+        var events = response.result.items;
+
+        if (events.length > 0) {
+            for (let i = 0; i < events.length; i++) {
+                var eventDate = new Date(events[i].start.dateTime);
+                if (currentDay.getDate() == eventDate.getDate()) {
+                    console.log(cal)
+                    console.log(events[i])
+                    events[i].color = cal.backgroundColor;
+                    todayEvents.push(events[i]);
+                }
+            }
+        }
+        else {
+            appendPre('No events left today. Good job! ');
+        }
+        calEvents.googleEvents = todayEvents
+        
+    });
+}
+
+
+
 
 /**
  * Print the summary and start datetime/date of the next ten events in

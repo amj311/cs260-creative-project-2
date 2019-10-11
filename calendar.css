@@ -148,6 +148,7 @@ div#nowMarker {
     right: 0;
     max-width: 20% !important;
     min-width: 10em;
+    background-color: lightgrey;
 }
 
 .event .event-title, .event .event-subtitle {

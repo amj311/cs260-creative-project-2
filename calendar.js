@@ -1,3 +1,8 @@
+/*  global Vue */
+/*  global fetch */
+/*  global $ */
+/*  global moment */
+
 /***********************************************************
  DATA STRUCTURE
 \***********************************************************/
@@ -96,7 +101,7 @@ class Course {
 		this.color = seed.color || "lightgrey";
 	}
 
-	getRelSeed(sched_day) {
+	relTimeSeed(sched_day) {
 		let start = `${moment().format('Y-M-D')} ${sched_day.start.hr}:${sched_day.start.hr}`;
 		let end = `${moment().format('Y-M-D')} ${sched_day.end.hr}:${sched_day.end.hr}`;
 		return { start, end }
@@ -223,7 +228,7 @@ var testUserData_2 = {
  Vue Components
 \***********************************************************/
 
-var calBox = new Vue ({
+var calEvents = new Vue ({
 	el: '#aplus-cal-box .events-box',
 
 	data: {
@@ -246,12 +251,14 @@ var calBox = new Vue ({
 	},
 
 	computed: {
-		calendarItems() {
+		googleItems() {
 			var elements = []
 
 			//repeat for every necessary calendar
 			this.googleEvents.forEach( event => {
-				elements.push(new CalendarElFromEvent(event))
+				console.log(event)
+				elements.push(new CalendarElFromEvent(new GoogleEvent(event)))
+				console.log(elements[elements.length-1])
 			})
 
 
