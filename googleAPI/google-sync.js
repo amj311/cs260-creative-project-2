@@ -115,7 +115,7 @@ function syncCalendar(event) {
         'orderBy': 'startTime'
     }).then(function(response) {
         var events = response.result.items;
-        appendPre('Upcoming events:');
+        //appendPre('Upcoming events:');
 
         if (events.length > 0) {
             for (i = 0; i < events.length; i++) {
