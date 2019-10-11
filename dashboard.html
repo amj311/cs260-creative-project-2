@@ -61,12 +61,8 @@
 							<div class="grid">
 								<div class="gutter"></div>
 								<div class="events-box">
-									<div class="event sub" style="top: 449px;">
-										<div class="event-title">Netflix Avatar Release</div>
-										<div class="event-subtitle">#wtrbndr4life</div>
-									</div>
 									<div v-for="event in googleItems" :data-type="event.baseEvent.type" class="event" :style="event.styles">
-										<div class="event-title">{{event.summary}}</div>
+										<div class="event-title"><a title="Open Google Calendar" target="_blank" :href="event.baseEvent.gco.htmlLink">{{event.summary}}</a></div>
 										<div class="event-subtitle">{{event.subtitle}}</div>
 									</div>
 								</div>

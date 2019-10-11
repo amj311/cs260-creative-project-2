@@ -75,13 +75,14 @@ class ClassPeriod extends Event {
 
 
 class GoogleEvent extends Event {
-	constructor(eventItem) {
+	constructor(gco) {
 
-		eventItem.start = eventItem.start.dateTime;
-		eventItem.end = eventItem.end.dateTime;
+		gco.start = gco.start.dateTime;
+		gco.end = gco.end.dateTime;
 
-		super(eventItem)
+		super(gco)
 		this.type = CAL_CLASSES._GGL;
+		this.gco = gco
 	}
 }
 
