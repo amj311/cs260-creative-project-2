@@ -255,10 +255,10 @@ var calBox = new Vue ({
 			})
 
 
-			this.userClasses.forEach( event => {
-				event.type = CAL_CLASSES._CLASS;
-				elements.push(new CalendarElFromEvent(event))
-			})
+			//this.userClasses.forEach( event => {
+			//	event.type = CAL_CLASSES._CLASS;
+			//	elements.push(new CalendarElFromEvent(event))
+			//})
 
 			return elements;
 		}
