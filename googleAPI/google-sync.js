@@ -120,7 +120,7 @@ function syncCalendar(event) {
             for (i = 0; i < events.length; i++) {
                 var eventDate = new Date(events[i].start.dateTime);
                 if (currentDay.getDate() == eventDate.getDate()) {
-                    todayEvents.push(event);
+                    todayEvents.push(events[i]);
                 }
             }
             console.log(todayEvents)
