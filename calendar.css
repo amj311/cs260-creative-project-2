@@ -1,3 +1,7 @@
+:root {
+    --height-15min: 1rem;
+}
+
 #msgs {
 	padding: 10px;
 	background: #dddddd;
@@ -69,10 +73,11 @@ div#nowMarker {
 /* schedule background lines and hours */
 
 .sched-box {
-	height: 16px; /* CANNOT BE EM - because .min are have .8 em font and js calculation of time will be off. */ 
+	height: var(--height-15min); /* CANNOT BE EM - because .min are have .8 em font and js calculation of time will be off. */ 
 	box-sizing: border-box;
 }
 .sched-box .timestamp {
+    user-select: none;
     width: 2.5em;
     text-align: right;
     padding-right: .3em;
@@ -118,7 +123,7 @@ div#nowMarker {
 	border-radius: 3px;
 	min-width: 70%;
 	max-width: 90%;
-	min-height: 50px;
+	min-height: calc( 2 * var(--height-15min) );
     border: 2px solid #00000011;
     overflow: hidden;
     user-select: none;
@@ -127,19 +132,30 @@ div#nowMarker {
 }
 .event:hover, .events.active {
 	z-index: 20 !important;
-	box-shadow: 0 0 5px #00000088;
+    box-shadow: 0 0 5px #00000088;
 }
-.event.main {
+.event[data-type*="main"] {
 	z-index: 10;
-	left: 50%;
+	/* left: 50%;
     max-width:60%;
-    transform: translateX(-50%)
+    transform: translateX(-50%) */
 }
 .event.sub {
 	z-index: 5;
 	background: #bbb;
 }
+.event[data-type="google"] {
+    right: 0;
+    max-width: 20% !important;
+    min-width: 10em;
+}
 
+.event .event-title, .event .event-subtitle {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .event .event-title {
     font-size:.8em;
 }
