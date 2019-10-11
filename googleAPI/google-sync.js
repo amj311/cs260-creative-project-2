@@ -155,20 +155,23 @@ function syncCalendar(cal) {
         'orderBy': 'startTime'
     }).then(function(response) {
         var events = response.result.items;
-
+        console.log(cal.summary, cal)
+        
         if (events.length > 0) {
             for (let i = 0; i < events.length; i++) {
                 var eventDate = new Date(events[i].start.dateTime);
                 if (currentDay.getDate() == eventDate.getDate()) {
-                    console.log(cal)
+                    
+                    console.log(events[i].summary, events[i].colorId)
                     console.log(events[i])
+                    if( !events[i].colorId ) { events[i].colorId = cal.colorId } 
                     events[i].color = cal.backgroundColor;
                     todayEvents.push(events[i]);
                 }
             }
         }
         else {
-            appendPre('No events left today. Good job! ');
+            appendPre('No events for calendar: '+cal.summary);
         }
         calEvents.googleEvents = todayEvents
         
