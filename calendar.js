@@ -401,4 +401,4 @@ nowMarker.initiate();
 posCalNow();
 
 //FIXTHIS: weeeeird bug morphs data when swapping test objects repeatedly. Maybe a problem with 'new' and memory?
-calBox.testEvents(testUserData_1)
+//calBox.testEvents(testUserData_1)
