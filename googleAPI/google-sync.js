@@ -123,6 +123,8 @@ function syncCalendar(event) {
                     todayEvents.push(event);
                 }
             }
+            console.log(todayEvents)
+            calBox.googleEvents = todayEvents
         }
         else {
             appendPre('No events left today. Good job! ');
