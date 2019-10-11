@@ -115,20 +115,11 @@ function syncCalendar(event) {
         'orderBy': 'startTime'
     }).then(function(response) {
         var events = response.result.items;
-        //appendPre('Upcoming events:');
 
         if (events.length > 0) {
             for (i = 0; i < events.length; i++) {
                 var eventDate = new Date(events[i].start.dateTime);
                 if (currentDay.getDate() == eventDate.getDate()) {
-                    // var event = events[i];
-                    // var when = event.start.dateTime;
-                    // if (!when) {
-                    //     when = event.start.date;
-                    // }
-
-                    // appendPre(event.summary + ' (' + when + ')')
-                    // console.table(event)
                     todayEvents.push(event);
                 }
             }
